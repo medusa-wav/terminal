@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --h: 135;
       --green: hsl(var(--h), 100%, 50%);
@@ -24,12 +23,10 @@
       --error: #ff4444;
       --warn: #ffcc00;
     }
-
     html {
       height: 100%;
       height: -webkit-fill-available;
     }
-
     body {
       height: 100%;
       height: -webkit-fill-available;
@@ -38,11 +35,8 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
       overflow: hidden;
-      /* prevent rubber-band scroll on iOS */
       overscroll-behavior: none;
     }
-
-    /* Scanline overlay — hidden on small screens for perf */
     @media (min-width: 600px) {
       body::before {
         content: '';
@@ -59,7 +53,6 @@
         z-index: 9999;
       }
     }
-
     body::after {
       content: '';
       position: fixed;
@@ -68,7 +61,6 @@
       pointer-events: none;
       z-index: 9998;
     }
-
     #app {
       display: flex;
       flex-direction: column;
@@ -77,13 +69,10 @@
       max-width: 900px;
       margin: 0 auto;
       padding: 0 12px;
-      /* safe areas for notched phones */
       padding-left: max(12px, env(safe-area-inset-left));
       padding-right: max(12px, env(safe-area-inset-right));
       padding-bottom: env(safe-area-inset-bottom);
     }
-
-    /* ── HEADER ── */
     #header {
       display: flex;
       align-items: center;
@@ -93,13 +82,11 @@
       border-bottom: 1px solid var(--green-border);
       flex-shrink: 0;
     }
-
     #header-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
     #logo {
       color: var(--green);
       font-size: 14px;
@@ -107,11 +94,9 @@
       letter-spacing: 0.05em;
       text-shadow: 0 0 12px var(--green);
     }
-
     @media (min-width: 400px) {
       #logo { font-size: 15px; }
     }
-
     #status-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
@@ -120,12 +105,10 @@
       animation: pulse 2s infinite;
       flex-shrink: 0;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
-
     #header-right {
       display: flex;
       align-items: center;
@@ -134,7 +117,6 @@
       font-size: 11px;
       flex-shrink: 0;
     }
-
     #user-count {
       color: var(--green-dim);
       display: none;
@@ -142,7 +124,6 @@
     @media (min-width: 380px) {
       #user-count { display: inline; }
     }
-
     #session-nick {
       color: var(--warn);
       max-width: 80px;
@@ -150,16 +131,12 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     #logout-btn {
       cursor: pointer;
       color: var(--muted);
-      /* bigger tap target */
       padding: 6px 4px;
       -webkit-tap-highlight-color: transparent;
     }
-
-    /* ── MESSAGES ── */
     #messages {
       flex: 1;
       overflow-y: auto;
@@ -173,11 +150,9 @@
       scrollbar-width: thin;
       scrollbar-color: var(--green-border) transparent;
     }
-
     #messages::-webkit-scrollbar { width: 3px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
     #messages::-webkit-scrollbar-thumb { background: var(--green-border); border-radius: 2px; }
-
     .msg {
       display: grid;
       grid-template-columns: auto auto auto 1fr auto;
@@ -188,7 +163,6 @@
       animation: fadeIn 0.15s ease;
       line-height: 1.6;
     }
-
     @media (max-width: 480px) {
       .msg {
         grid-template-columns: auto 1fr auto;
@@ -217,21 +191,17 @@
         align-self: center;
       }
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes fadeOut {
       from { opacity: 1; transform: translateX(0); }
-      to   { opacity: 0; transform: translateX(-8px); }
+      to { opacity: 0; transform: translateX(-8px); }
     }
-
     @media (hover: hover) {
       .msg:hover { background: var(--green-faint); }
     }
-
     .msg-time {
       color: var(--muted);
       font-size: 10px;
@@ -239,7 +209,6 @@
       user-select: none;
       white-space: nowrap;
     }
-
     .msg-nick {
       font-weight: 700;
       flex-shrink: 0;
@@ -247,18 +216,12 @@
       text-align: right;
       font-size: 12px;
     }
-
-    .msg-nick.self  { color: var(--warn); text-shadow: 0 0 8px rgba(255,204,0,0.4); }
+    .msg-nick.self { color: var(--warn); text-shadow: 0 0 8px rgba(255,204,0,0.4); }
     .msg-nick.other { color: var(--green); text-shadow: 0 0 8px hsla(var(--h),100%,50%,0.3); }
-
     .msg-sep { color: var(--muted); flex-shrink: 0; }
-
     .msg-text { color: var(--text); word-break: break-word; flex: 1; font-size: 13px; }
-
     .msg.system .msg-text { color: var(--muted); font-style: italic; }
     .msg.system .msg-nick { color: var(--muted); }
-
-    /* ── DELETE BUTTON ── */
     .msg-delete {
       display: none;
       background: transparent;
@@ -273,49 +236,38 @@
       transition: all 0.15s;
       opacity: 0.6;
       line-height: 1.6;
-      /* bigger tap target on mobile */
       min-height: 28px;
       min-width: 36px;
     }
-
     .msg-delete:hover, .msg-delete:active {
       background: rgba(255, 68, 68, 0.1);
       border-color: var(--error);
       opacity: 1;
     }
-
-    /* show delete on mobile via touch — always visible for own msgs on mobile */
     @media (hover: none) {
       .msg.is-self .msg-delete { display: inline-flex; align-items: center; justify-content: center; }
     }
     @media (hover: hover) {
       .msg.is-self:hover .msg-delete { display: inline-flex; align-items: center; justify-content: center; }
     }
-
     .msg-delete.confirm {
       color: var(--error);
       border-color: var(--error);
       opacity: 1;
       animation: blink 0.4s step-end infinite;
     }
-
     @keyframes blink { 50% { opacity: 0.4; } }
-
     .msg.deleting { animation: fadeOut 0.25s ease forwards; }
-
-    /* ── INPUT AREA ── */
     #input-area {
       border-top: 1px solid var(--green-border);
       padding: 8px 0 6px;
       flex-shrink: 0;
     }
-
     #input-row {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-
     #prompt-label {
       color: var(--green);
       font-weight: 700;
@@ -324,7 +276,6 @@
       flex-shrink: 0;
       font-size: 14px;
     }
-
     #msg-input {
       flex: 1;
       background: transparent;
@@ -332,15 +283,12 @@
       outline: none;
       color: var(--text);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px; /* prevent iOS zoom */
+      font-size: 16px;
       caret-color: var(--green);
-      /* bigger tap area */
       padding: 6px 0;
       min-height: 36px;
     }
-
     #msg-input::placeholder { color: var(--muted); }
-
     #send-btn {
       background: transparent;
       border: 1px solid var(--green-border);
@@ -355,12 +303,10 @@
       min-height: 36px;
       -webkit-tap-highlight-color: transparent;
     }
-
     #send-btn:hover, #send-btn:active {
       background: var(--green-faint);
       border-color: var(--green);
     }
-
     #footer-info {
       margin-top: 4px;
       color: var(--muted);
@@ -368,8 +314,6 @@
       display: flex;
       justify-content: space-between;
     }
-
-    /* ── COLOR PICKER BUTTON ── */
     #color-toggle {
       position: fixed;
       bottom: max(72px, calc(72px + env(safe-area-inset-bottom)));
@@ -391,13 +335,10 @@
       transition: border-color 0.15s, box-shadow 0.15s;
       -webkit-tap-highlight-color: transparent;
     }
-
     #color-toggle:hover, #color-toggle:active {
       border-color: var(--green);
       box-shadow: 0 0 12px hsla(var(--h),100%,50%,0.25);
     }
-
-    /* ── COLOR PICKER PANEL ── */
     #color-panel {
       position: fixed;
       bottom: max(116px, calc(116px + env(safe-area-inset-bottom)));
@@ -411,13 +352,11 @@
       border-radius: 3px;
       transition: opacity 0.15s, transform 0.15s;
     }
-
     #color-panel.hidden {
       opacity: 0;
       pointer-events: none;
       transform: translateY(6px);
     }
-
     #color-panel-title {
       color: var(--muted);
       font-size: 10px;
@@ -425,7 +364,6 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-
     #hue-slider {
       -webkit-appearance: none;
       appearance: none;
@@ -444,7 +382,6 @@
       border: 1px solid rgba(255,255,255,0.1);
       margin-bottom: 12px;
     }
-
     #hue-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 16px;
@@ -455,7 +392,6 @@
       cursor: pointer;
       box-shadow: 0 0 4px rgba(0,0,0,0.5);
     }
-
     #hue-slider::-moz-range-thumb {
       width: 16px;
       height: 16px;
@@ -464,14 +400,12 @@
       border: 2px solid rgba(0,0,0,0.5);
       cursor: pointer;
     }
-
     .preset-row {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
       margin-bottom: 10px;
     }
-
     .preset-dot {
       width: 22px;
       height: 22px;
@@ -482,17 +416,14 @@
       flex-shrink: 0;
       -webkit-tap-highlight-color: transparent;
     }
-
     .preset-dot:hover, .preset-dot:active { transform: scale(1.2); }
     .preset-dot.active { border: 2px solid #fff; }
-
     #color-preview {
       font-size: 10px;
       color: var(--muted);
       text-align: center;
       letter-spacing: 0.05em;
     }
-
     #color-reset {
       width: 100%;
       margin-top: 8px;
@@ -507,13 +438,10 @@
       transition: all 0.15s;
       letter-spacing: 0.05em;
     }
-
     #color-reset:hover, #color-reset:active {
       color: var(--green);
       border-color: var(--green);
     }
-
-    /* ── LOGIN SCREEN ── */
     #login-screen {
       position: fixed;
       inset: 0;
@@ -529,7 +457,6 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
-
     #login-box {
       border: 1px solid var(--green-border);
       padding: 24px 24px;
@@ -538,11 +465,9 @@
       background: var(--bg2);
       box-shadow: 0 0 40px rgba(0,0,0,0.4);
     }
-
     @media (min-width: 480px) {
       #login-box { padding: 32px 40px; }
     }
-
     #login-title {
       color: var(--green);
       font-size: 18px;
@@ -550,31 +475,27 @@
       margin-bottom: 4px;
       text-shadow: 0 0 16px var(--green);
     }
-
     @media (min-width: 480px) {
       #login-title { font-size: 20px; }
     }
-
     #login-sub {
       color: var(--muted);
       font-size: 11px;
       margin-bottom: 24px;
     }
-
     .field-label {
       color: var(--muted);
       font-size: 11px;
       margin-bottom: 4px;
       display: block;
     }
-
     .field-input {
       width: 100%;
       background: transparent;
       border: 1px solid var(--green-border);
       color: var(--text);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px; /* prevent iOS zoom on focus */
+      font-size: 16px;
       padding: 10px 10px;
       outline: none;
       margin-bottom: 14px;
@@ -582,12 +503,10 @@
       transition: border-color 0.15s;
       -webkit-appearance: none;
     }
-
     .field-input:focus {
       border-color: var(--green);
       box-shadow: 0 0 8px hsla(var(--h),100%,50%,0.15);
     }
-
     #login-btn {
       width: 100%;
       background: var(--green-faint);
@@ -605,19 +524,15 @@
       -webkit-tap-highlight-color: transparent;
       min-height: 44px;
     }
-
     #login-btn:hover, #login-btn:active {
       background: hsla(var(--h),100%,50%,0.12);
     }
-
     #login-error {
       color: var(--error);
       font-size: 11px;
       margin-top: 10px;
       min-height: 16px;
     }
-
-    /* ── CONFIG WARNING ── */
     #config-warning {
       position: fixed;
       inset: 0;
@@ -631,7 +546,6 @@
       padding: 24px;
       text-align: center;
     }
-
     #config-warning h2 { color: var(--warn); font-size: 15px; }
     #config-warning p { color: var(--muted); font-size: 11px; max-width: 500px; line-height: 1.8; }
     #config-warning code {
@@ -646,9 +560,7 @@
       max-width: 500px;
       width: 100%;
     }
-
     .hidden { display: none !important; }
-
     #typing-indicator {
       color: var(--muted);
       font-size: 11px;
@@ -656,21 +568,14 @@
       min-height: 16px;
       flex-shrink: 0;
     }
-
-    /* ── KEYBOARD PUSH ── */
-    /* On iOS, when keyboard opens, the viewport shrinks.
-       We rely on the flex layout filling -webkit-fill-available. */
     @supports (-webkit-touch-callout: none) {
       #app {
-        /* Extra bottom padding so input isn't hidden behind keyboard */
         padding-bottom: 0;
       }
     }
   </style>
 </head>
 <body>
-
-<!-- CONFIG WARNING -->
 <div id="config-warning" class="hidden">
   <h2>⚠ configure o firebase</h2>
   <p>edite o arquivo e preencha suas credenciais do Firebase na seção <strong>FIREBASE CONFIG</strong>:</p>
@@ -681,8 +586,6 @@
     projectId: "seu-projeto"
   </code>
 </div>
-
-<!-- LOGIN SCREEN -->
 <div id="login-screen">
   <div id="login-box">
     <div id="login-title">terminal://chat</div>
@@ -695,23 +598,14 @@
     <div id="login-error"></div>
   </div>
 </div>
-
-<!-- COLOR PICKER (shown after login) -->
 <button id="color-toggle" class="hidden" onclick="toggleColorPanel()" title="cor do tema" aria-label="mudar cor do tema">◈</button>
-
 <div id="color-panel" class="hidden">
   <div id="color-panel-title">// cor do tema</div>
-
   <div class="preset-row" id="preset-row"></div>
-
   <input type="range" id="hue-slider" min="0" max="360" value="135" />
-
   <div id="color-preview">hsl(135, 100%, 50%)</div>
-
   <button id="color-reset" onclick="resetColor()">[ reset padrão ]</button>
 </div>
-
-<!-- MAIN CHAT -->
 <div id="app" class="hidden">
   <div id="header">
     <div id="header-left">
@@ -724,13 +618,11 @@
       <span id="logout-btn" onclick="doLogout()" title="sair">[×]</span>
     </div>
   </div>
-
   <div id="messages"></div>
   <div id="typing-indicator"></div>
-
   <div id="input-area">
     <div id="input-row">
-      <span id="prompt-label">&gt;&gt;</span>
+      <span id="prompt-label">>></span>
       <input id="msg-input" type="text" placeholder="mensagem..." maxlength="500"
         autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" />
       <button id="send-btn" onclick="sendMessage()">[↑]</button>
@@ -741,85 +633,63 @@
     </div>
   </div>
 </div>
-
-<!-- Firebase SDKs -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, signInAnonymously, signInWithEmailAndPassword, createUserWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { getDatabase, ref, push, onValue, serverTimestamp, query, limitToLast, onDisconnect, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  //  FIREBASE CONFIG
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   const firebaseConfig = {
-    apiKey:            "AIzaSyA8DI8tyA_ZblKpj-UmMIq1PVYzkJ2aNzQ",
-    authDomain:        "o-maquinario-do-fim.firebaseapp.com",
-    databaseURL:       "https://o-maquinario-do-fim-default-rtdb.firebaseio.com",
-    projectId:         "o-maquinario-do-fim",
-    storageBucket:     "o-maquinario-do-fim.firebasestorage.app",
+    apiKey: "AIzaSyA8DI8tyA_ZblKpj-UmMIq1PVYzkJ2aNzQ",
+    authDomain: "o-maquinario-do-fim.firebaseapp.com",
+    databaseURL: "https://o-maquinario-do-fim-default-rtdb.firebaseio.com",
+    projectId: "o-maquinario-do-fim",
+    storageBucket: "o-maquinario-do-fim.firebasestorage.app",
     messagingSenderId: "190938684149",
-    appId:             "1:190938684149:web:0f988af35ec4a5213f03bc",
-    measurementId:     "G-VCDX9H4M97"
+    appId: "1:190938684149:web:0f988af35ec4a5213f03bc",
+    measurementId: "G-VCDX9H4M97"
   };
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
   const PLACEHOLDER = "COLE_SUA_API_KEY";
   if (firebaseConfig.apiKey === PLACEHOLDER) {
     document.getElementById('config-warning').classList.remove('hidden');
     document.getElementById('login-screen').classList.add('hidden');
     throw new Error("Firebase not configured");
   }
-
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
-
   await setPersistence(auth, browserLocalPersistence);
-
   let currentUser = null;
   let currentNick = '';
   let msgCount = 0;
   let presenceRef = null;
-
-  // ── COLOR PICKER ──
   const PRESETS = [
     { h: 135, label: 'verde' },
     { h: 190, label: 'ciano' },
     { h: 210, label: 'azul' },
     { h: 270, label: 'roxo' },
     { h: 330, label: 'rosa' },
-    { h: 0,   label: 'vermelho' },
-    { h: 40,  label: 'laranja' },
-    { h: 60,  label: 'amarelo' },
+    { h: 0, label: 'vermelho' },
+    { h: 40, label: 'laranja' },
+    { h: 60, label: 'amarelo' },
   ];
-
   const DEFAULT_HUE = 135;
-
   function applyHue(h) {
     const root = document.documentElement;
     root.style.setProperty('--h', h);
     document.getElementById('hue-slider').value = h;
     document.getElementById('color-preview').textContent = `hsl(${h}, 100%, 50%)`;
     localStorage.setItem('tchat_hue', h);
-
-    // update active preset dot
     document.querySelectorAll('.preset-dot').forEach(d => {
       d.classList.toggle('active', parseInt(d.dataset.h) === parseInt(h));
     });
   }
-
   function resetColor() {
     applyHue(DEFAULT_HUE);
   }
-
   window.toggleColorPanel = function() {
     const panel = document.getElementById('color-panel');
     panel.classList.toggle('hidden');
   };
-
   window.resetColor = resetColor;
-
-  // Build preset dots
   const presetRow = document.getElementById('preset-row');
   PRESETS.forEach(p => {
     const dot = document.createElement('div');
@@ -830,12 +700,9 @@
     dot.addEventListener('click', () => applyHue(p.h));
     presetRow.appendChild(dot);
   });
-
   document.getElementById('hue-slider').addEventListener('input', e => {
     applyHue(parseInt(e.target.value));
   });
-
-  // Close panel when clicking outside
   document.addEventListener('click', e => {
     const panel = document.getElementById('color-panel');
     const toggle = document.getElementById('color-toggle');
@@ -845,13 +712,9 @@
       panel.classList.add('hidden');
     }
   });
-
-  // Apply saved hue on load
   const savedHue = localStorage.getItem('tchat_hue');
   if (savedHue) applyHue(parseInt(savedHue));
   else applyHue(DEFAULT_HUE);
-
-  // ── PRESENCE ──
   function setupPresence(nick) {
     const connectedRef = ref(db, '.info/connected');
     presenceRef = ref(db, `presence/${auth.currentUser.uid}`);
@@ -866,7 +729,6 @@
       document.getElementById('user-count').textContent = `${count} online`;
     });
   }
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const savedNick = localStorage.getItem('tchat_nick');
@@ -878,14 +740,11 @@
       }
     }
   });
-
-  // ── LOGIN ──
   window.doLogin = async function() {
     const nick = document.getElementById('nick-input').value.trim();
     const pass = document.getElementById('pass-input').value;
     const errEl = document.getElementById('login-error');
     errEl.textContent = '';
-
     if (!nick || nick.length < 2) {
       errEl.textContent = '> erro: handle muito curto (mín. 2 chars)';
       return;
@@ -894,11 +753,9 @@
       errEl.textContent = '> erro: use apenas letras, números, _ - .';
       return;
     }
-
     const btn = document.getElementById('login-btn');
     btn.textContent = '[ conectando... ]';
     btn.disabled = true;
-
     try {
       if (pass) {
         const email = `${nick.toLowerCase()}@termchat.local`;
@@ -912,7 +769,6 @@
       } else {
         await signInAnonymously(auth);
       }
-
       currentUser = auth.currentUser;
       currentNick = nick;
       localStorage.setItem('tchat_nick', nick);
@@ -924,21 +780,17 @@
       btn.disabled = false;
     }
   };
-
   window.doLogout = function() {
     if (presenceRef) remove(presenceRef);
     localStorage.removeItem('tchat_nick');
     auth.signOut().then(() => location.reload());
   };
-
   function enterChat(nick) {
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
     document.getElementById('color-toggle').classList.remove('hidden');
     document.getElementById('session-nick').textContent = nick;
-
     listenMessages();
-
     const input = document.getElementById('msg-input');
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
@@ -946,19 +798,14 @@
         sendMessage();
       }
     });
-
-    // Scroll to bottom when keyboard opens on mobile
     input.addEventListener('focus', () => {
       setTimeout(() => {
         const msgs = document.getElementById('messages');
         msgs.scrollTop = msgs.scrollHeight;
       }, 350);
     });
-
     input.focus();
   }
-
-  // ── LISTEN ──
   function listenMessages() {
     const q = query(ref(db, 'messages'), limitToLast(120));
     onValue(q, (snap) => {
@@ -976,16 +823,12 @@
       if (wasAtBottom) container.scrollTop = container.scrollHeight;
     });
   }
-
-  // ── SEND ──
   window.sendMessage = async function() {
     const input = document.getElementById('msg-input');
     const text = input.value.trim();
     if (!text || !currentUser) return;
-
     input.value = '';
     input.focus();
-
     await push(ref(db, 'messages'), {
       nick: currentNick,
       uid: currentUser.uid,
@@ -993,8 +836,6 @@
       ts: serverTimestamp()
     });
   };
-
-  // ── DELETE ──
   window.deleteMessage = async function(btn, key) {
     if (!btn.dataset.confirm) {
       btn.dataset.confirm = '1';
@@ -1009,11 +850,9 @@
       }, 3000);
       return;
     }
-
     btn.disabled = true;
     const msgEl = btn.closest('.msg');
     msgEl.classList.add('deleting');
-
     try {
       await remove(ref(db, `messages/${key}`));
     } catch (e) {
@@ -1024,23 +863,17 @@
       btn.classList.remove('confirm');
     }
   };
-
-  // ── RENDER ──
   function appendMsg(data, scroll = true, key = null) {
     const container = document.getElementById('messages');
     const div = document.createElement('div');
     const isSelf = data.uid === currentUser?.uid;
-
     div.className = 'msg' + (data.system ? ' system' : '') + (isSelf ? ' is-self' : '');
-
     const ts = data.ts ? new Date(data.ts) : new Date();
     const time = ts.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     const nickClass = data.system ? '' : (isSelf ? 'self' : 'other');
-
     const deleteBtn = (isSelf && key && !data.system)
       ? `<button class="msg-delete" onclick="deleteMessage(this, '${key}')">[×]</button>`
       : '';
-
     div.innerHTML = `
       <span class="msg-time">${time}</span>
       <span class="msg-nick ${nickClass}">${escHtml(data.nick)}</span>
@@ -1048,11 +881,9 @@
       <span class="msg-text">${escHtml(data.text)}</span>
       ${deleteBtn}
     `;
-
     container.appendChild(div);
     if (scroll) container.scrollTop = container.scrollHeight;
   }
-
   function escHtml(str) {
     return String(str)
       .replace(/&/g,'&amp;')
@@ -1060,7 +891,6 @@
       .replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;');
   }
-
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('nick-input').addEventListener('keydown', e => {
       if (e.key === 'Enter') document.getElementById('pass-input').focus();
@@ -1072,4 +902,3 @@
 </script>
 </body>
 </html>
-
